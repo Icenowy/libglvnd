@@ -167,6 +167,9 @@ if use_asm
     gl_dispatch_type = 'ppc64_@0@'.format(thread_type)
   elif host_machine.cpu_family() == 'loongarch64'
     gl_dispatch_type = 'loongarch64_tsd'
+    if cc.compiles('', args: ['-mno-relax'], name: '-mno-relax')
+      add_project_arguments('-mno-relax', language : 'c')
+    endif
   endif
   add_project_arguments('-DUSE_DISPATCH_ASM', language : 'c')
 endif
